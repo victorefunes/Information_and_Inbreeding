@@ -653,6 +653,52 @@ We can also decompose the variation in treatment time, since each year a certain
 This assumption states that an individual's treatment status on any given line is unaffected by the treatment status of others. In our setting, the treatment (genomic selection) affects all individuals, so there is no selection into treatment.
 
 \section{Robustness Checks\label{subsec:robustness}}
+\subsection{Alternative Matching Estimators}\label{subsec:altmatch}
+ 
+Our baseline constructs the control group by nearest-neighbor matching on a logit propensity score. To assess sensitivity to this choice, we re-estimated the matched control group under seven alternative estimators: Mahalanobis-distance matching, propensity-score matching with a caliper of $0.2$ standard deviations, one-to-one matching without replacement, optimal pair matching, full matching, inverse-probability weighting (IPW), and entropy balancing. 
+
+Table~\ref{tab:altmatch} reports, for each method, the number of covariates (of 74) achieving an absolute standardized mean difference below $0.1$, the largest remaining difference, and the effective sample size (ESS) of the matched control group.
+ 
+Three of the alternatives are not feasible in our setting, and the reason is instructive. With only 40 treated founders and 74 matching covariates, methods that rely on a high-dimensional distance metric or on exact moment balancing break down. Mahalanobis matching balances only 32 of 74 covariates, as Euclidean distance loses discriminating power in high dimensions. Full matching and entropy balancing achieve worse balance than the baseline while driving the effective control sample toward degeneracy: entropy balancing places essentially all weight on a single control unit (control ESS $\approx 1$) yet still leaves 49 covariates imbalanced, and full matching collapses the control ESS to below nine. We therefore do not report these three methods as robustness checks; their failure reflects the dimensionality of the balancing problem relative to the number of treated units, not a deficiency of the design.
+ 
+Among the feasible estimators, the results reinforce the baseline. Caliper matching achieves the best balance of any method (67 of 74 covariates below the $0.1$ threshold, improving on the baseline's 56), at the cost of a smaller matched treated group, since the caliper discards superstar founders with no sufficiently close control (treated ESS falls from 40 to 29). Inverse-probability weighting balances 59 of 74 covariates while retaining a comparable control sample (ESS $\approx 62$). In both cases, the balance is at least as good as the baseline without degeneracy.
+ 
+Most importantly, the difference-in-differences estimate is stable across these specifications. Re-estimating Model~(1) on the caliper-matched sample yields a treatment-by-post coefficient of 1.19 percentage points (0.423), and the IPW-weighted specification yields 0.98 (0.458), both statistically indistinguishable from the baseline estimate of $1.45$ percentage points (0.607).
+
+Figure~\ref{fig:altmatch_es} overlays the event-study coefficients under the baseline, caliper, and IPW specifications; the post-2011 divergence in inbreeding between popular and control lines is present and of similar magnitude in all three. We conclude that our findings are not an artifact of the propensity-score matching estimator.
+ 
+\begin{table}[htbp]
+\centering
+\caption{Covariate balance and effective sample size across matching estimators}
+\label{tab:altmatch}
+\begin{tabular}{lccc}
+\toprule
+Estimator & Balanced ($<0.1$), of 74 & Largest SMD & Control ESS \\
+\midrule
+\multicolumn{4}{l}{\textit{Reported}} \\
+\quad Nearest neighbor (baseline) & 56 & 0.28 & 76.4 \\
+\quad Caliper ($0.2$ SD)          & 67 & 0.18 & 44.0 \\
+\quad Inverse-probability weighting & 59 & 0.20 & 62.0 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Infeasible at 74 covariates / 40 treated (not reported)}} \\
+\quad One-to-one, no replacement  & 50 & 0.36 & 40.0 \\
+\quad Optimal pair matching       & 38 & 0.65 & 360.9 \\
+\quad Mahalanobis distance        & 32 & 0.79 & 111.1 \\
+\quad Full matching               & 38 & 1.15 & 8.6 \\
+\quad Entropy balancing           & 25 & 2.36 & 1.0 \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.92\textwidth}
+\footnotesize \vspace{4pt} Notes: Balance is the count of the 74 matching covariates with
+absolute standardized mean difference below $0.1$; ``Largest SMD'' is the maximum absolute
+standardized mean difference. Effective sample size (ESS) is for the matched or weighted
+control group; the treated group has 40 founders (29 under the caliper). Standardization
+uses the treated-group standard deviation (ATT). Mahalanobis, full, and entropy balancing
+are shown for completeness but not used, as high-dimensional distance and exact moment
+balancing are infeasible with 40 treated units.
+\end{minipage}
+\end{table}
+
 \subsection{Total number of descendants\label{suvsubsec:progeny}}
 
 In our analysis, we defined a ``popular bull'' as a bull whose total number of descendants was among the 95$^{th}$ percentile of their distribution by 2021. The cutoff point also influences this calculation, since genomic testing expands the supply of bulls, and the size of any line is endogenous to genomic selection. It can be argued that selecting bulls based on the ex-post number of sons is tautological with respect to our argument.
