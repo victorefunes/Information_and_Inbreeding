@@ -313,7 +313,7 @@ This would be consistent with the returns to inbreeding increasing relative to o
 \section{Data Description\label{sec:data_description}}
 To understand the role of genomic testing in dairy breeder decision-making, we use data on dairy bull traits and lineages, including the inbreeding rate of each bull. Dairy bull traits in the US are calculated using data on dairy bull offspring producing milk on US dairy farms. The National Dairy Herd Improvement Program (NDHIP) collects, manages, and analyzes data from dairy farms that are members of Dairy Herd Improvement Associations to assess the bull's contribution to the productivity of their offspring \citep{Hutchins_Hueth2023}. The raw data collected from farms are used to estimate a statistical model that predicts the genetic contribution of an animal as a sire (or dam) after controlling for environmental variables such as herd, age, pedigree, and season effects. The predicted values for each trait from this model are commonly called the \textbf{predicted transmitting ability} (PTA) of a trait.
 
-The primary data for our study are from the National Association of Animal Breeders (NAAB), a trade organization representing all major livestock genetics companies that sell dairy bulls in the US. As noted in the introduction, we restrict our sample to Holstein bulls, the dominant breed in the US dairy herd, for whom the NAAB data is most comprehensive. Dairy bull traits for all bulls sold by members are posted three times a year at the same time that each bull's predicted genetic traits are calculated and posted publicly by the Council on Dairy Cattle Breeding (formerly by the USDA) \citep{Hutchins_Hueth2023}. Our data comes from the NAAB's published lists from 2001 to 2020 and represents over 15,400 dairy bulls, both foreign and domestic, sold by its members during this period. % TODO(E9): reconcile "over 15,400" with the 15,491 observations in Table \ref{tab:table1} (bulls vs. bull-year rows). The Association represents 95\% of the livestock genetics companies and cooperatives in the US and Canada,\footnote{\url{https://www.naab-css.org/history}} making these data broadly representative of what is sold to US dairy farmers.
+The primary data for our study are from the National Association of Animal Breeders (NAAB), a trade organization representing all major livestock genetics companies that sell dairy bulls in the US. As noted in the introduction, we restrict our sample to Holstein bulls, the dominant breed in the US dairy herd, for whom the NAAB data is most comprehensive. Dairy bull traits for all bulls sold by members are posted three times a year at the same time that each bull's predicted genetic traits are calculated and posted publicly by the Council on Dairy Cattle Breeding (formerly by the USDA) \citep{Hutchins_Hueth2023}. Our data comes from the NAAB's published lists from 2001 to 2020 and represents over 15,400 dairy bulls, both foreign and domestic, sold by its members during this period. The Association represents 95\% of the livestock genetics companies and cooperatives in the US and Canada,\footnote{\url{https://www.naab-css.org/history}} making these data broadly representative of what is sold to US dairy farmers.
 
 The NAAB lists also contain lineage information, which we use to track a bull's descendants. Every animal born in the USA and Canada is assigned a unique ID, which includes information about its breed and country of birth. The NAAB data include these IDs for the bull and both of its parents, allowing us to build a genetic network of relationships. 
 
@@ -585,7 +585,7 @@ While genomic testing increased inbreeding, it also increased milk production an
 
 The benefits of introducing genomic selection in our sample can be calculated using an index called \textbf{Net Merit}, which measures the net profit over the lifetime of the average daughter of the animal, expressed in U.S. dollars. Net merit is calculated by multiplying the values of genetic traits by a set of dollar values intended to capture the ``market value'' of all traits.\footnote{Table \ref{tab:net_merit} shows what are the magnitudes of such weights \citep{VanRaden2021}. Note that the calculation involves the usage of subindexes for health and reproduction traits, as well as an estimation of residual feed intake per animal.}
 
-Published values of Net Merit are already adjusted for inbreeding; the quality increase will exceed the losses from inbreeding depression. A more accurate estimate of the benefits requires more information than we have; we need information on the expected future inbreeding for all animals in our sample. We do not have the information required to perform such a calculation.\footnote{Let $g_{k}$ be the reported PTA of trait $k$ from bull $i$ and $\tilde{g}_{ik}$ be the unadjusted PTA, then their relationship will be: $\tilde{g}_{ik}=g_{ik}-\left[(EFI_{i}-F_{i})\hat{\beta}_{k}\right]$, where $EF_{i}$ is the expected future inbreeding and $\hat{\beta}_{k}$ is the regression coefficient from a linear model that relates observed values with phenotypic values.} 
+Published values of Net Merit are already adjusted for inbreeding; the increase in quality will exceed the losses from inbreeding depression. A more accurate estimate of the benefits requires more information than we have; we need information on the expected future inbreeding for all animals in our sample. We do not have the information required to perform such a calculation.\footnote{Let $g_{k}$ be the reported PTA of trait $k$ from bull $i$ and $\tilde{g}_{ik}$ be the unadjusted PTA, then their relationship will be: $\tilde{g}_{ik}=g_{ik}-\left[(EFI_{i}-F_{i})\hat{\beta}_{k}\right]$, where $EF_{i}$ is the expected future inbreeding and $\hat{\beta}_{k}$ is the regression coefficient from a linear model that relates observed values with phenotypic values.} 
 
 In principle, one could compare the Net Merit of popular-line descendants with that of matched controls to gauge whether the extra genetic gain in popular lines offsets their higher inbreeding cost. In practice, our design does not identify this net welfare effect. The per-year Net Merit differential between popular and control lines is small relative to its sampling variability (driven by the limited size of the matched control group) and switches sign across birth cohorts. A line-clustered bootstrap of the benefit--cost ratio yields a 95\% interval that spans values well below and well above one (equivalently, a net present value whose interval comfortably contains zero), so we do not report a net welfare figure. We therefore restrict our welfare accounting to the inbreeding \emph{cost} of the popularity premium, which is well identified (Appendix~\ref{sec:cost}), and leave estimation of the net welfare effect to future work with larger control samples.
 
@@ -641,14 +641,14 @@ Under Assumptions 3 and 4, we have that:
     ATT_{post}=E\left[inb_{post}^{treat}-inb_{post}^{control} \middle| T_{j}=1\right]-E\left[inb_{pre}^{treat}-inb_{pre}^{control} \middle| T_{j}=0\right]
 \end{equation}
 
-The ATT is identified as the difference-in-differences of observed outcomes in the pre and post-intervention periods. All elements in this equation are observed and, therefore, estimable. Suppose popular bulls had superior traits to our matched control group. In that case, this condition is violated, and we would not be able to parse out the causal effect of inbreeding from the effect of the bull's genetic superiority. Assumptions 3 and 4 ensure that the OLS estimates $\hat{\beta}$ from Model (2) are consistent and asymptotically valid \citep{Roth2023}.
+The ATT is defined as the difference-in-differences in observed outcomes between the pre- and post-intervention periods. All elements in this equation are observed and, therefore, estimable. Suppose popular bulls had superior traits to our matched control group. In that case, this condition is violated, and we would not be able to parse out the causal effect of inbreeding from the effect of the bull's genetic superiority. Assumptions 3 and 4 ensure that the OLS estimates $\hat{\beta}$ from Model (2) are consistent and asymptotically valid \citep{Roth2023}.
 
 \medskip
 \textbf{Assumption 5}: Let $W_{j}=(inb_{j,pre}, inb_{j,post}, T_{j})^{'}$ be a vector of outcomes and treatment status for unit $i$. Then, we observe a sample of $N$  independent and identically distributed random draws $W_{i}\sim F_{W}(w)$ for a distribution $F$ satisfying parallel trends.
 
 Under Assumptions 3, 4, and 5: $\sqrt{N}(\hat{\beta}-ATT_{post})\overset{D}{\rightarrow} N(0, \sigma^{2})$, then we can consistently estimate the variance $\sigma^{2}$ clustering at the line level \citep{Bertrand2004} asymptotically ($N\rightarrow\infty$ and $T$ fixed).
 
-We can also decompose the variation in treatment time, since each year a certain number of bulls will be born from lines in both groups, each with its own inbreeding rate that can be averaged across the treatment and control groups. Models 2-4 show the complete specification with leads and lags of the treated group. These models decompose the estimated ATT relative to the treatment average by birth year. \cite{Sun2021} call this specification ``Dynamic specification.'' However, there is no staggered treatment: genomic selection affects all lines in the same year, whereas inbreeding rates evolve independently after the treatment. 
+We can also decompose the variation in treatment time, since each year a certain number of bulls will be born from lines in both groups, each with its own inbreeding rate that can be averaged across the treatment and control groups. Models 2-4 show the complete specification, including leads and lags, for the treated group. These models decompose the estimated ATT relative to the treatment average by birth year. \cite{Sun2021} call this specification ``Dynamic specification.'' However, there is no staggered treatment: genomic selection affects all lines in the same year, whereas inbreeding rates evolve independently thereafter. 
 
 This assumption states that an individual's treatment status on any given line is unaffected by the treatment status of others. In our setting, the treatment (genomic selection) affects all individuals, so there is no selection into treatment.
 
@@ -663,7 +663,7 @@ Three of the alternatives are not feasible in our setting, and the reason is ins
  
 Among the feasible estimators, the results reinforce the baseline. Caliper matching achieves the best balance of any method (67 of 74 covariates below the $0.1$ threshold, improving on the baseline's 56), at the cost of a smaller matched treated group, since the caliper discards superstar founders with no sufficiently close control (treated ESS falls from 40 to 29). Inverse-probability weighting balances 59 of 74 covariates while retaining a comparable control sample (ESS $\approx 62$). In both cases, the balance is at least as good as the baseline without degeneracy.
  
-Most importantly, the difference-in-differences estimate is stable across these specifications. Re-estimating Model~(1) on the caliper-matched sample yields a treatment-by-post coefficient of 1.19 percentage points (0.423), and the IPW-weighted specification yields 0.98 (0.458), both statistically indistinguishable from the baseline estimate of $1.45$ percentage points (0.607).
+Most importantly, the difference-in-differences estimate is stable across these specifications. Re-estimating Model~(1) on the caliper-matched sample yields a treatment-by-post coefficient of 1.19 percentage points (0.423), and the IPW-weighted specification yields 0.98 (0.458), both of similar magnitude to the baseline estimate of $1.45$ percentage points (0.607) and statistically significant at conventional levels.
 
 Figure~\ref{fig:ev_plot} overlays the event-study coefficients under the baseline, caliper, and IPW specifications; the post-2011 divergence in inbreeding between popular and control lines is present and of similar magnitude in all three. We conclude that our findings are not an artifact of the propensity-score matching estimator.
  
@@ -698,6 +698,13 @@ are shown for completeness but not used, as high-dimensional distance and exact 
 balancing are infeasible with 40 treated units.
 \end{minipage}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ev_plot.png}
+    \caption{Coefficient plot with different matching algorithms}
+    \label{fig:ev_plot} 
+\end{figure}
 
 \subsection{Total number of descendants\label{suvsubsec:progeny}}
 
@@ -764,13 +771,7 @@ Finally, Figure \ref{fig:ancestry} shows coefficient plots by different definiti
     \label{fig:treat_control} 
 \end{figure}
 
-\newpage
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/ev_plot.png}
-    \caption{Coefficient plot with different matching algorithms}
-    \label{fig:ev_plot} 
-\end{figure}
+
 
 \input{figures/NM}
 \input{figures/results_table_robust}
