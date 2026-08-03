@@ -665,7 +665,7 @@ Among the feasible estimators, the results reinforce the baseline. Caliper match
  
 Most importantly, the difference-in-differences estimate is stable across these specifications. Re-estimating Model~(1) on the caliper-matched sample yields a treatment-by-post coefficient of 1.19 percentage points (0.423), and the IPW-weighted specification yields 0.98 (0.458), both statistically indistinguishable from the baseline estimate of $1.45$ percentage points (0.607).
 
-Figure~\ref{fig:altmatch_es} overlays the event-study coefficients under the baseline, caliper, and IPW specifications; the post-2011 divergence in inbreeding between popular and control lines is present and of similar magnitude in all three. We conclude that our findings are not an artifact of the propensity-score matching estimator.
+Figure~\ref{fig:ev_plot} overlays the event-study coefficients under the baseline, caliper, and IPW specifications; the post-2011 divergence in inbreeding between popular and control lines is present and of similar magnitude in all three. We conclude that our findings are not an artifact of the propensity-score matching estimator.
  
 \begin{table}[htbp]
 \centering
@@ -762,6 +762,14 @@ Finally, Figure \ref{fig:ancestry} shows coefficient plots by different definiti
     \includegraphics[width=\textwidth]{figures/treat_control.pdf}
     \caption{Sample selection mechanism}
     \label{fig:treat_control} 
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ev_plot.png}
+    \caption{Coefficient plot with different matching algorithms}
+    \label{fig:ev_plot} 
 \end{figure}
 
 \input{figures/NM}
